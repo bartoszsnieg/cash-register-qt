@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ui/commponents/RecipeView.qml</file>
+        <file>ui/commponents/TopBar.qml</file>
+        <file>ui/commponents/TopBar/TopBarButton.qml</file>
+        <file>ui/commponents/TopBar/TopBarSpliter.qml</file>
+        <file>ui/commponents/TopBar/TopBarUser.qml</file>
+        <file>ui/commponents/LogInDialog/LogInDialog.qml</file>
+        <file>ui/commponents/common/keyboard/FullKeyBoard.qml</file>
+        <file>ui/commponents/common/keyboard/KeyboardButton.qml</file>
+        <file>ui/commponents/common/controls/VkTextField.qml</file>
+        <file>ui/commponents/common/keyboard/NumericKeyboard.qml</file>
+    </qresource>
+</RCC>
