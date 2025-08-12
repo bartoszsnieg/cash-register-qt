@@ -1,12 +1,13 @@
 import QtQuick 2.15
 
 Item {
-    property bool isVisible: handler.IsVisible
-    property QtObject handler
-
     id: root
+    required  property QtObject handler
+    property bool isVisible: handler.IsVisible
+    
     width: 500
     height: 440
+    visible: opacity > 0
 
     Rectangle {
         id: keys
@@ -168,7 +169,6 @@ Item {
                     onClick: handler.cancelValue()
                 }
 
-
                 KeyboardButton {
                     button_text: "\uE750"
                     width: 90 * 2
@@ -176,18 +176,15 @@ Item {
                     onClick: handler.backspacePress()
                 }
 
-
-
                 KeyboardButton {
                     button_text: "\uF78C"
-                    background_color:  "#8bc052"
+                    background_color: "#8bc052"
                     width: 90 * 2
                     height: 90
                     onClick: handler.acceptValue()
                 }
             }
         }
-
     }
 
     states: [
@@ -196,7 +193,6 @@ Item {
             PropertyChanges {
                 target: root
                 opacity: 1
-                visible: true
             }
         },
         State {
@@ -204,7 +200,6 @@ Item {
             PropertyChanges {
                 target: root
                 opacity: 0
-                visible: false
             }
         }
     ]
@@ -213,33 +208,19 @@ Item {
         Transition {
             from: "visible"
             to: "hidden"
-            SequentialAnimation {
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 200 // 500 ms
-                    easing.type: Easing.InOutQuad
-                }
-                NumberAnimation {
-                    properties: "visible"
-                    duration: 0
-                    // easing.type: Easing.InOutQuad
-                }
+            NumberAnimation {
+                properties: "opacity"
+                duration: 200 // 500 ms
+                easing.type: Easing.InOutQuad
             }
         },
         Transition {
             from: "hidden"
             to: "visible"
-            SequentialAnimation {
-                NumberAnimation {
-                    properties: "visible"
-                    duration: 0
-                    // easing.type: Easing.InOutQuad
-                }
-                NumberAnimation {
-                    properties: "opacity"
-                    duration: 200
-                    // easing.type: Easing.InOutQuad
-                }
+            NumberAnimation {
+                properties: "opacity"
+                duration: 200
+                // easing.type: Easing.InOutQuad
             }
         }
     ]

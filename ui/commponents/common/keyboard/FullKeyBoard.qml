@@ -4,13 +4,14 @@ import QtQuick.Controls 2.15
 
 Item {
 
+    required  property QtObject handler
     property bool isVisible: handler.IsVisible
-    property QtObject handler
+    
 
     id: root
     width: 1300
     height: row0.height + row1.height + row2.height + row3.height + 3 * 10 + 50
-
+    visible: opacity >0
     Rectangle {
         id: keys
 
@@ -26,129 +27,11 @@ Item {
             anchors.bottom: parent.bottom
             color: "transparent"
 
-        ListModel {
-            id: modelRow0
 
-            ListElement {
-                value: "1"
-            }
-            ListElement {
-                value: "2"
-            }
-            ListElement {
-                value: "3"
-            }
-            ListElement {
-                value: "4"
-            }
-            ListElement {
-                value: "5"
-            }
-            ListElement {
-                value: "6"
-            }
-            ListElement {
-                value: "7"
-            }
-            ListElement {
-                value: "8"
-            }
-            ListElement {
-                value: "9"
-            }
-            ListElement {
-                value: "0"
-            }
-        }
-        ListModel {
-            id: modelRow1
-
-            ListElement {
-                value: "q"
-            }
-            ListElement {
-                value: "w"
-            }
-            ListElement {
-                value: "e"
-            }
-            ListElement {
-                value: "r"
-            }
-            ListElement {
-                value: "t"
-            }
-            ListElement {
-                value: "y"
-            }
-            ListElement {
-                value: "u"
-            }
-            ListElement {
-                value: "i"
-            }
-            ListElement {
-                value: "o"
-            }
-            ListElement {
-                value: "p"
-            }
-        }
-        ListModel {
-            id: modelRow2
-            ListElement {
-                value: "a"
-            }
-            ListElement {
-                value: "s"
-            }
-            ListElement {
-                value: "d"
-            }
-            ListElement {
-                value: "f"
-            }
-            ListElement {
-                value: "g"
-            }
-            ListElement {
-                value: "h"
-            }
-            ListElement {
-                value: "j"
-            }
-            ListElement {
-                value: "k"
-            }
-            ListElement {
-                value: "l"
-            }
-        }
-        ListModel {
-            id: modelRow3
-            ListElement {
-                value: "z"
-            }
-            ListElement {
-                value: "x"
-            }
-            ListElement {
-                value: "c"
-            }
-            ListElement {
-                value: "v"
-            }
-            ListElement {
-                value: "b"
-            }
-            ListElement {
-                value: "n"
-            }
-            ListElement {
-                value: "m"
-            }
-        }
-
+    readonly property var row0Model: ["1","2","3","4","5","6","7","8","9","0"]
+    readonly property var row1Model: ["q","w","e","r","t","y","u","i","o","p"]
+    readonly property var row2Model: ["a","s","d","f","g","h","j","k","l"]
+    readonly property var row3Model: ["z","x","c","v","b","n","m"]
 
         Row {
             id: row0
@@ -158,12 +41,12 @@ Item {
             height: 90
             spacing: 10
             Repeater {
-                model: modelRow0
+                model: left.row0Model
                 delegate: KeyboardButton {
-                    button_text: value
+                    button_text: modelData
                     width: parent.height
                     height: parent.height
-                    onClick: button_code => handler.keyPress(button_code)
+                    onClick: handler.keyPress(button_code)
                 }
             }
         }
@@ -178,12 +61,12 @@ Item {
             height: 90
             spacing: 10
             Repeater {
-                model: modelRow1
+                model: left.row1Model
                 delegate: KeyboardButton {
-                    button_text: value
+                    button_text: modelData
                     width: parent.height
                     height: parent.height
-                    onClick: button_code => handler.keyPress(button_code)
+                    onClick: handler.keyPress(button_code)
                 }
             }
         }
@@ -196,12 +79,12 @@ Item {
             height: 90
             spacing: 10
             Repeater {
-                model: modelRow2
+                model: left.row2Model
                 delegate: KeyboardButton {
-                    button_text: value
+                    button_text: modelData
                     width: parent.height
                     height: parent.height
-                    onClick: button_code => handler.keyPress(button_code)
+                    onClick: handler.keyPress(button_code)
                 }
             }
         }
@@ -226,12 +109,12 @@ Item {
             spacing: 10
 
             Repeater {
-                model: modelRow3
+                model: left.row3Model
                 delegate: KeyboardButton {
-                    button_text: value
+                    button_text: modelData
                     width: parent.height
                     height: parent.height
-                    onClick: button_code => handler.keyPress(button_code)
+                    onClick: handler.keyPress(button_code)
                 }
             }
         }
@@ -270,7 +153,6 @@ Item {
             PropertyChanges {
                 target: root
                 opacity: 1
-                visible: true
             }
         },
         State {
@@ -278,7 +160,6 @@ Item {
             PropertyChanges {
                 target: root
                 opacity: 0
-                visible: false
             }
         }
     ]
@@ -293,22 +174,12 @@ Item {
                     duration: 200 // 500 ms
                     easing.type: Easing.InOutQuad
                 }
-                NumberAnimation {
-                    properties: "visible"
-                    duration: 0
-                    // easing.type: Easing.InOutQuad
-                }
             }
         },
         Transition {
             from: "hidden"
             to: "visible"
             SequentialAnimation {
-                NumberAnimation {
-                    properties: "visible"
-                    duration: 0
-                    // easing.type: Easing.InOutQuad
-                }
                 NumberAnimation {
                     properties: "opacity"
                     duration: 200
