@@ -5,7 +5,6 @@ import QtQuick.Controls 2.15
 import QtCharts 2.15
 import QtQuick.Timeline 1.0
 import "ui/commponents"
-import "ui/commponents/LogInDialog"
 import "ui/commponents/common/keyboard"
 
 Window {
@@ -18,42 +17,11 @@ Window {
     maximumWidth: width
     minimumHeight: height
     maximumHeight: height
-
-        Frame {
-            anchors.fill: parent
-            rightPadding: 0
-            bottomPadding: 0
-            // visible: false
-            TopBar {
-                id: topBar
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-            }
-
-            Row {
-                id: row
-                anchors {
-                    top: topBar.bottom
-                    bottom: parent.bottom
-                    left: parent.left
-                    right: parent.right
-                }
-
-                RecipeView {
-                    id: rec1
-                    width: 400
-                    height: parent.height
-                }
-            }
-        }
-    LogInDialog {
+    Loader {
+        id: viewLoader
         anchors.fill: parent
+        source: page_controllere.pageUrl
     }
-
-
 
     FullKeyBoard {
         id: vk

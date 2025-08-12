@@ -3,13 +3,16 @@
 #include <QQmlContext>
 
 #include "ui/commponents/common/keyboard/virtualkeyboardcontroller.h"
+#include "ui/commponents/Forms/formcontroller.h"
+#include "ui/pagecontroller.h"
 
 int main(int argc, char *argv[])
 {
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+     qmlRegisterType<bs::ui::components::FormController>("bs.ui.controllers.form",1,0,"FormController");
 
     bs::ui::components::VirtualKeyBoardController classic_virtual_keyboard_handler_{};
     bs::ui::components::VirtualKeyBoardController numeric_virtual_keyboard_handler_{};
+    bs::ui::PageController page_controller_{};
 
     if (qEnvironmentVariableIsEmpty("QTGLESSTREAM_DISPLAY")) {
         qputenv("QT_QPA_EGLFS_PHYSICAL_WIDTH", QByteArray("213"));
@@ -36,6 +39,7 @@ int main(int argc, char *argv[])
 
     root_context->setContextProperty("virtual_keyboard_handler_classic", &classic_virtual_keyboard_handler_);
     root_context->setContextProperty("virtual_keyboard_handler_numeric", &numeric_virtual_keyboard_handler_);
+    root_context->setContextProperty("page_controllere", &page_controller_);
 
     engine.load(url);
 

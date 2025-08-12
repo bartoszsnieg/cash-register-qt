@@ -3,6 +3,7 @@ import QtQuick 2.15
 Item {
     width: 700
     height: 300
+    property var user_model
     Rectangle {
         id: rectangle
         width: children.width
@@ -41,14 +42,14 @@ Item {
             spacing: 4
             Text {
                 id: text2
-                text: qsTr("Bartosz")
+                text: qsTr(user_model.name)
                 font.pixelSize: rectangle1.height * 0.25
                 color: "#cdcdcd"
             }
 
             Text {
                 id: text3
-                text: qsTr("Snieg")
+                text: qsTr(user_model.sname)
                 color: "#cdcdcd"
                 font.pixelSize: rectangle1.height * 0.25
             }

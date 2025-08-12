@@ -15,19 +15,18 @@ void VirtualKeyBoardController::addTextField(QObject *obj)
     if (auto item = qobject_cast<QQuickItem*>(obj)) {
         QObject::connect(item, &QQuickItem::activeFocusChanged,
                          this, [this, item](bool val){
-            this->current_text_field_ = (val)?item:nullptr;
-            this->setIsVisible(val);
+                             this->current_text_field_ = (val)?item:nullptr;
+                             this->setIsVisible(val);
                          });
     }
 }
 
 void VirtualKeyBoardController::keyPress(QVariant key_code)
 {
-    auto placeholder = qDebug() << key_code.toString();
     if (this->current_text_field_) {
         const QString new_value =
             this->current_text_field_->property("text").toString() +
-                                  key_code.toString();
+            key_code.toString();
         this->current_text_field_->setProperty("text", QVariant{new_value});
     }
 }
@@ -39,7 +38,7 @@ void VirtualKeyBoardController::backspacePress()
             this->current_text_field_->property("text").toString();
         if(new_value.length() > 0){
             new_value.chop(1);
-        this->current_text_field_->setProperty("text", QVariant{new_value});
+            this->current_text_field_->setProperty("text", QVariant{new_value});
         }
     }
 }
@@ -63,7 +62,6 @@ bool VirtualKeyBoardController::IsVisible() const
 
 void VirtualKeyBoardController::setIsVisible(bool newIsVisible)
 {
-    qDebug() << "Val_change: "<<newIsVisible;
     if(this->current_text_field_ && not(newIsVisible)) {
         this->current_text_field_->setProperty("focus",QVariant{false});
     }

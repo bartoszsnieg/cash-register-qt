@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import bs.ui.controllers.form 1.0
 import "../common/controls"
 
 Item {
@@ -33,11 +34,9 @@ Item {
             VkTextField {
                 id: loginInput
                 placeholderText: "Wpisz login"
+                objectName: "loginInput"
                 width: parent.width
                 onTextChanged: console.log("Nowy tekst:", text)
-                onActiveFocusChanged: {
-                    console.log(activeFocus)
-                }
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pixelSize: 30
                 onAccepted: passwordInput.focus = true
@@ -45,6 +44,7 @@ Item {
 
             VkTextField {
                 id: passwordInput
+                objectName: "passwordInput"
                 placeholderText: "Wpisz pin"
                 echoMode: TextInput.Password   // 🔹 ukrywa znaki
                 width: parent.width
@@ -53,7 +53,7 @@ Item {
                 anchors.top: loginInput.bottom
                 anchors.topMargin: 30
                 vk_handler: virtual_keyboard_handler_numeric
-                onAccepted: passwordInput.focus = false
+                onAccepted: {passwordInput.focus = false; formController.submit()}
             }
 
             Text {
@@ -85,7 +85,18 @@ Item {
                 styleColor: "#ffffff"
                 anchors.centerIn: parent
             }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: formController.submit()
+            }
         }
+
+        FormController {
+            id: formController
+            input: [loginInput, passwordInput]
+            onSubmited: (val) => console.log(val.passwordInput)
+        }
+
     }
     }
 }

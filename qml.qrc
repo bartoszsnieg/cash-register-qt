@@ -11,5 +11,7 @@
         <file>ui/commponents/common/keyboard/KeyboardButton.qml</file>
         <file>ui/commponents/common/controls/VkTextField.qml</file>
         <file>ui/commponents/common/keyboard/NumericKeyboard.qml</file>
+        <file>ui/MainView.qml</file>
+        <file>ui/LoginView.qml</file>
     </qresource>
 </RCC>

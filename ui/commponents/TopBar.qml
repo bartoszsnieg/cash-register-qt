@@ -78,6 +78,7 @@ Item {
                     icon: model.icon
                 }
             }
+
             TopBarUser {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom

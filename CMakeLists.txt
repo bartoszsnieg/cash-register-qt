@@ -20,13 +20,21 @@ set(PROJECT_SOURCES
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS LinguistTools)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
     qt_add_executable(kasafiskalna
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
 
         ui/commponents/common/keyboard/virtualkeyboardcontroller.h ui/commponents/common/keyboard/virtualkeyboardcontroller.cpp
+
+        ui/commponents/Forms/formcontroller.cpp ui/commponents/Forms/formcontroller.h
+        ui/pagecontroller.h ui/pagecontroller.cpp
     )
+
+qt_add_translations(kasafiskalna TS_FILES kasafiskalna_en_US.ts)
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET kasafiskalna APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
@@ -47,6 +55,8 @@ endif()
 
 target_link_libraries(kasafiskalna
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Qml)
+target_link_libraries(kasafiskalna PRIVATE Qt6::Core)
+target_link_libraries(kasafiskalna PRIVATE Qt6::Core)
 target_link_libraries(kasafiskalna PRIVATE Qt6::Core)
 target_link_libraries(kasafiskalna PRIVATE Qt6::Core)
 
